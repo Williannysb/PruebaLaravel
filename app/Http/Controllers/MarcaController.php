@@ -67,10 +67,12 @@ public function edit($id){
 
         public function destroy($id){
          // elimina registro
-         $marca = Marca::where('id','=',$id)->get()->First();
+         $marca = Marca::where('id','=',$id)->get()->first();
 
          $marca->update(['status' => 0]);
-         return back(['success'=> true]); }
+         return back()->with('success');
+
+        }
 
     /*    public function store(Request $request){
             $validated=$request->validate([

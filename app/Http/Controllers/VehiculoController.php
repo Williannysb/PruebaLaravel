@@ -87,7 +87,7 @@ class VehiculoController extends Controller
 
     public function destroy($id){
      // elimina registro
-     $vehiculo = Vehiculo::where('id','=',$id)->get()->First();
+     $vehiculo = Vehiculo::where('id','=',$id)->get()->first();
      $vehiculo->update(['status' => 0]);
      return back()->with('success');
 

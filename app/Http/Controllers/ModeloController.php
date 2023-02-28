@@ -74,7 +74,7 @@ public function edit($id){
 
         public function destroy($id){
             // elimina registro
-            $modelo = Modelo::where('id','=',$id)->get()->First();
+            $modelo = Modelo::where('id','=',$id)->get()->first();
             $modelo->update(['status' => 0]);
             return back()->with('success');
 
