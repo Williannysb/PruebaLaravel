@@ -57,7 +57,7 @@
                                 <select name="selpropietario" id="selpropietario" class="form-control">
                                     <option value="null">Seleccione un propietario</option>
                                     @foreach ($propietario as $propiet)
-                                    <option value="{{$propiet->id}}">{{$propiet->nombre}}</option>
+                                    <option value="{{$propiet->id}}">{{$propiet->nombre}} {{$propiet->apellido}}</option>
                                     @endforeach
                                    </select>
 

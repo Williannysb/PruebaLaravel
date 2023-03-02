@@ -36,7 +36,7 @@ class PropietarioController extends Controller
             'cedula'=> 'required|unique:propietarios',
             'nombre' => 'required',
             'apellido' => 'required',
-            'fecha_nac' => 'required',
+            'fecha_nac' => 'required'
 
         ]);
 
@@ -56,10 +56,10 @@ class PropietarioController extends Controller
     public function update(Request $request, $id)
     {
         $validated = $request->validate([
-            'cedula'=> 'required|unique:propietarios,cedula'.$id,
+            'cedula'=> 'required|unique:propietarios,cedula,'.$id,
             'nombre' => 'required',
             'apellido' => 'required',
-            'fecha_nac' => 'required',
+            'fecha_nac' => 'required'
         ]);
         $propietario = Propietario::find($id);
         $propietario->update($validated);
@@ -70,7 +70,7 @@ class PropietarioController extends Controller
     public function destroy($id)
     {
         // elimina registro
-        $propietario = Propietario::where('id', '=', $id)->get()->first();
+        $propietario = Propietario::where('id','=',$id)->get()->first();
         $propietario->update(['status' => 0]);
         return back()->with('success');
 

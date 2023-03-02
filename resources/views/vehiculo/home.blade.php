@@ -50,7 +50,9 @@
                                       <td>{{$vehiculo->placa}}</td>
                                       <td>{{$vehiculo->color}}</td>
                                       <td>{{$vehiculo->fecha_ingreso}}</td>
-                                      <td>{{$vehiculo->propietario->nombre}}</td>
+                                      <td>{{$vehiculo->propietario->nombre}} {{$vehiculo->propietario->apellido}}</td>
+
+
                                       <td>
                                         <div class="row">
                                             <div class="col-md-4">
