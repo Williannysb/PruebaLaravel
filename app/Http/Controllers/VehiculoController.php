@@ -1,13 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Models\Vehiculo;
 use App\Models\Marca;
 use App\Models\Modelo;
+use App\Models\Propietario;
 use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\Request; // Recuperar datos de la vista
-
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -26,17 +25,17 @@ class VehiculoController extends Controller
 
     public function index(Request $request)
     {
-        $vehiculo = Vehiculo::where('status','=','1')->with('modelo.marca')->get();
+        $vehiculo = Vehiculo::where('status','=','1')->with(['modelo.marca','propietario'])->get();
          return view('vehiculo.home', compact('vehiculo'));
 
     }
 
 
     public function create(){
-
+        $propietario = Propietario::where('status','=','1')->get();
         $modelo = Modelo::where('status','=','1')->with('marca')->get();
         $marca= Marca::where('status','=','1')->get();
-        return view('vehiculo.create',compact('modelo','marca'));
+        return view('vehiculo.create',compact('modelo','marca','propietario'));
 
 }
   public function obtenerModelos($id) {
@@ -54,7 +53,8 @@ class VehiculoController extends Controller
         'placa'=>'required|unique:vehiculos',
         'color'=>'required',
         'fecha_ingreso'=>'required|date',
-        'id_modelo'=>'required'
+        'id_modelo'=>'required',
+        'id_propietario'=>'required'
         ]);
 
         Vehiculo::create($validated);
@@ -65,9 +65,10 @@ class VehiculoController extends Controller
     public function edit($id){
 // sirve para traer los datos a editar y los coloca en un formulario
         $vehiculo = Vehiculo::find($id);
+        $propietario = Propietario::where('status','=','1')->get();
         $modelo = Modelo::where('status','=','1')->with('marca')->get();
         $marca= Marca::where('status','=','1')->get();
-        return view('vehiculo.edit',compact('vehiculo','modelo','marca'));
+        return view('vehiculo.edit',compact('vehiculo','modelo','marca','propietario'));
 }
 
     public function update(Request $request, $id){
@@ -75,7 +76,8 @@ class VehiculoController extends Controller
             'placa'=>'required|unique:vehiculos,placa,'.$id,
             'color'=>'required',
             'fecha_ingreso'=>'required|date',
-            'id_modelo'=>'required'
+            'id_modelo'=>'required',
+            'id_propietario'=>'required'
             ]);
             $vehiculo = Vehiculo::find($id);
             $vehiculo->update($validated);

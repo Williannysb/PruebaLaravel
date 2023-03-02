@@ -44,3 +44,12 @@ Route::post('/modelo/store',[App\Http\Controllers\ModeloController::class, 'stor
 Route::get('/modelo/edit/{id}', [App\Http\Controllers\ModeloController::class, 'edit'])->name('modelo.edit');
 Route::put('/modelo/update/{id}',[App\Http\Controllers\ModeloController::class, 'update'])->name('modelo.update');
 Route::delete('/modelo/destroy/{id}',[App\Http\Controllers\ModeloController::class, 'destroy'])->name('modelo.destroy');
+
+//Rutas de propietarios
+
+Route::get('/propietario', [App\Http\Controllers\PropietarioController::class, 'index'])->name('propietario.propietario');
+Route::get('/propietario/create', [App\Http\Controllers\PropietarioController::class, 'create'])->name('propietario.create');
+Route::post('/propietario/store',[App\Http\Controllers\PropietarioController::class, 'store'])->name('propietario.store');
+Route::get('/propietario/edit/{id}', [App\Http\Controllers\PropietarioController::class, 'edit'])->name('propietario.edit');
+Route::put('/propietario/update/{id}',[App\Http\Controllers\PropietarioController::class, 'update'])->name('propietario.update');
+Route::delete('/propietario/destroy/{id}',[App\Http\Controllers\PropietarioController::class, 'destroy'])->name('propietario.destroy');

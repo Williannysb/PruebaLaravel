@@ -131,6 +131,9 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{{route('modelo.modelo')}}">Modelo</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('propietario.propietario')}}">Propietario</a>
+                        </li>
                     </ul>
                 @endif
             </ul>

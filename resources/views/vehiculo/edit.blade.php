@@ -24,7 +24,7 @@
                                       <select name="selmarca" id="selmarca" class="form-control" >
                                        <option value="null" required >Seleccione una Marca</option>
                                        @foreach ($marca as $mark)
-                                       <option  value="{{$mark->id}}">{{$mark->nombre}}</option>
+                                       <option  {{$mark->id == $vehiculo->id_propietario ? 'selected' : '' }}  value="{{$mark->id}}">{{$mark->nombre}}</option>
                                        @endforeach
                                       </select>
                             </div>
@@ -33,7 +33,7 @@
                                 <select name="selmodelo" id="selmodelo" class="form-control" >
                                     <option value="null" required >Seleccione un modelo</option>
                                     @foreach ($modelo as $model)
-                                    <option  value="{{$model->id}}">{{$model->nombre}} </option>
+                                    <option  {{$model->id == $vehiculo->id_propietario ? 'selected' : '' }}  value="{{$model->id}}">{{$model->nombre}} </option>
                                     @endforeach
                                    </select>
 
@@ -52,6 +52,16 @@
                              <div for="date" class="form-group">
                                 Fecha de Ingreso: <br>
                                 <input id="date" type="date" class="form-control datepicker" name="date" aria-describedby="helpId" value="{{ $vehiculo->fecha_ingreso}}" required>
+                             </div>
+                             <div class="form-group">
+                                Propietario: <br>
+                                <select name="selpropietario" id="selpropietario" class="form-control">
+                                    <option value="null" required>Seleccione un propietario</option>
+                                    @foreach ($propietario as $propiet)
+                                    <option  {{$propiet->id == $vehiculo->id_propietario ? 'selected' : '' }} value="{{$propiet->id}}">{{$propiet->nombre}}</option>
+                                    @endforeach
+                                   </select>
+
                              </div>
                             <br>
                              <button class="btn btn-primary" id="modificarVehiculo" value="Update">Modificar</button>
@@ -80,6 +90,7 @@
       let txtplaca  = $('#txtplaca').val();
       let txtcolor  = $('#txtcolor').val();
       let date      = $('#date').val();
+      let selpropietario  = $('#selpropietario').val();
       let _token    = $('input[name=_token]').val();
 
     $.ajax({
@@ -92,6 +103,7 @@
        placa     :txtplaca,
        color     :txtcolor,
        fecha_ingreso     :date,
+       id_propietario :selpropietario,
        _token    :_token
 
     },

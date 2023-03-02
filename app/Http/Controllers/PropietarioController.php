@@ -2,43 +2,45 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Models\Vehiculo;
 use App\Models\Marca;
+use App\Models\Propietario;
 use App\Models\Modelo;
 use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\Request; // Recuperar datos de la vista
-
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
-use Illuminate\Support\Facades\BD;
 
-class MarcaController extends Controller
+class PropietarioController extends Controller
 {
-    public function index(Request $request)
+
+  public function index(Request $request)
     {
-        $marca = Marca::where('status', '=', '1')->get();
-        return view('marca.marca', compact('marca'));
+        $propietario = Propietario::where('status', '=', '1')->get();
+        return view('propietario.propietario', compact('propietario'));
 
     }
     public function create()
     {
 
-        $marca = Marca::where('status', '=', '1')->get();
-        return view('marca.create', compact('marca'));
-
+        $propietario = Propietario::where('status', '=', '1')->get();
+        return view('propietario.create', compact('propietario'));
     }
 
     public function store(Request $request)
     {
         $validated = $request->validate([
+            'cedula'=> 'required|unique:propietarios',
             'nombre' => 'required',
-            'descripcion' => 'required',
+            'apellido' => 'required',
+            'fecha_nac' => 'required',
 
         ]);
 
-        Marca::create($validated);
+        Propietario::create($validated);
         return response()->json(['success' => true]);
 
     }
@@ -46,19 +48,21 @@ class MarcaController extends Controller
     {
         // sirve para traer los datos a editar y los coloca en un formulario
 
-        $marca = Marca::find($id);
-        return view('marca.edit', compact('marca'));
+        $propietario = Propietario::find($id);
+        return view('propietario.edit', compact('propietario'));
 
     }
 
     public function update(Request $request, $id)
     {
         $validated = $request->validate([
+            'cedula'=> 'required|unique:propietarios,cedula'.$id,
             'nombre' => 'required',
-            'descripcion' => 'required',
+            'apellido' => 'required',
+            'fecha_nac' => 'required',
         ]);
-        $marca = Marca::find($id);
-        $marca->update($validated);
+        $propietario = Propietario::find($id);
+        $propietario->update($validated);
         return response()->json(['success' => true]);
 
     }
@@ -66,23 +70,11 @@ class MarcaController extends Controller
     public function destroy($id)
     {
         // elimina registro
-        $marca = Marca::where('id', '=', $id)->get()->first();
-
-        $marca->update(['status' => 0]);
+        $propietario = Propietario::where('id', '=', $id)->get()->first();
+        $propietario->update(['status' => 0]);
         return back()->with('success');
 
     }
 
-    /*    public function store(Request $request){
-$validated=$request->validate([
-'title' => 'required|unique:posts|
-max:255',
-'body' => 'required',
-]);
-
-Marca::create($validated());
-return response()->json(['success' => true]);
-
 }
- */
-}
+

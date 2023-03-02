@@ -36,6 +36,7 @@
                                        <th>Placa</th>
                                        <th>Color</th>
                                        <th>Fecha de Ingreso</th>
+                                       <th>Propietario</th>
                                        <th>Acciones</th>
 
                                    </thead>
@@ -49,13 +50,14 @@
                                       <td>{{$vehiculo->placa}}</td>
                                       <td>{{$vehiculo->color}}</td>
                                       <td>{{$vehiculo->fecha_ingreso}}</td>
+                                      <td>{{$vehiculo->propietario->nombre}}</td>
                                       <td>
                                         <div class="row">
-                                            <div class="col-md-3">
+                                            <div class="col-md-4">
                                                 <a href="{{route('vehiculo.edit',$vehiculo->id)}}" class="btn btn-primary">
                                         <i  class="fas fa-trash"></i>Editar</a>
                                     </div>
-                                    <div class="col-md-3">
+                                    <div class="col-md-4">
                                         <form action="{{route('vehiculo.destroy', $vehiculo->id)}}" method="POST">
                                             @csrf
                                             @method('DELETE')

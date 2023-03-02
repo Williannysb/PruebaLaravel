@@ -52,6 +52,16 @@
                                 Fecha de Ingreso: <br>
                                 <input id="date" type="date" class="form-control datepicker" name="date">
                              </div>
+                             <div class="form-group">
+                                Propietario: <br>
+                                <select name="selpropietario" id="selpropietario" class="form-control">
+                                    <option value="null">Seleccione un propietario</option>
+                                    @foreach ($propietario as $propiet)
+                                    <option value="{{$propiet->id}}">{{$propiet->nombre}}</option>
+                                    @endforeach
+                                   </select>
+
+                             </div>
                             <br>
                              <button class="btn btn-primary" id="registrarVehiculo" value="Create">Registrar</button>
                              </form>
@@ -88,12 +98,13 @@
       e.preventDefault();
 
 
-      let selmarca  = $('#selmarca').val();
-      let selmodelo = $('#selmodelo').val();
-      let txtplaca  = $('#txtplaca').val();
-      let txtcolor  = $('#txtcolor').val();
-      let date      = $('#date').val();
-      let _token    = $('input[name=_token]').val();
+      let selmarca        = $('#selmarca').val();
+      let selmodelo       = $('#selmodelo').val();
+      let txtplaca        = $('#txtplaca').val();
+      let txtcolor        = $('#txtcolor').val();
+      let date            = $('#date').val();
+      let selpropietario  = $('#selpropietario').val();
+      let _token          = $('input[name=_token]').val();
 
 
 
@@ -103,11 +114,12 @@
 
     data:{
 
-       id_modelo :selmodelo,
-       placa     :txtplaca,
-       color     :txtcolor,
+       id_modelo         :selmodelo,
+       placa             :txtplaca,
+       color             :txtcolor,
        fecha_ingreso     :date,
-       _token    :_token
+       id_propietario    :selpropietario,
+       _token            :_token
 
     },
     dataType:'json',

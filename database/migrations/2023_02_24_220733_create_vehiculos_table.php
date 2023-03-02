@@ -20,6 +20,8 @@ class CreateVehiculosTable extends Migration
             $table->date('fecha_ingreso');
             $table->unsignedInteger('id_modelo');
             $table->foreign('id_modelo')->references('id')->on('modelos');
+            $table->unsignedInteger('id_propietario');
+            $table->foreign('id_propietario')->references('id')->on('propietarios');
             $table->boolean('status')->default(1);
             $table->timestamps();
         });

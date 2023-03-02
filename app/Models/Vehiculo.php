@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
+
 
 class Vehiculo extends Model
 {
@@ -17,11 +17,15 @@ protected $fillable = [
   'color',
   'fecha_ingreso',
   'id_modelo',
+  'id_propietario',
   'status'
 
 ];
 public function modelo(){
     return $this->belongsTo(Modelo::class, 'id_modelo');
+}
+public function propietario(){
+    return $this->belongsTo(Propietario::class, 'id_propietario');
 }
 
 }
