@@ -2,17 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Vehiculo;
+use App\Http\Requests\MarcaStoreRequest;
+use App\Http\Requests\MarcaUpdateRequest;
 use App\Models\Marca;
-use App\Models\Modelo;
-use Illuminate\Auth\Events\Validated;
-use Illuminate\Http\Request; // Recuperar datos de la vista
-
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Illuminate\Foundation\Bus\DispatchesJobs;
-use Illuminate\Foundation\Validation\ValidatesRequests;
-use Illuminate\Routing\Controller as BaseController;
-use Illuminate\Support\Facades\BD;
+use Illuminate\Http\Request;
 
 class MarcaController extends Controller
 {
@@ -30,15 +23,10 @@ class MarcaController extends Controller
 
     }
 
-    public function store(Request $request)
+    public function store(MarcaStoreRequest $request)
     {
-        $validated = $request->validate([
-            'nombre' => 'required',
-            'descripcion' => 'required',
 
-        ]);
-
-        Marca::create($validated);
+        Marca::create($request->all());
         return response()->json(['success' => true]);
 
     }
@@ -51,14 +39,11 @@ class MarcaController extends Controller
 
     }
 
-    public function update(Request $request, $id)
+    public function update(MarcaUpdateRequest $request, $id)
     {
-        $validated = $request->validate([
-            'nombre' => 'required',
-            'descripcion' => 'required',
-        ]);
+
         $marca = Marca::find($id);
-        $marca->update($validated);
+        $marca->update($request->all());
         return response()->json(['success' => true]);
 
     }
@@ -66,23 +51,11 @@ class MarcaController extends Controller
     public function destroy($id)
     {
         // elimina registro
-        $marca = Marca::where('id', '=', $id)->get()->first();
+        $marca = Marca::where('id', '=', $id)->first();
 
         $marca->update(['status' => 0]);
         return back()->with('success');
 
     }
 
-    /*    public function store(Request $request){
-$validated=$request->validate([
-'title' => 'required|unique:posts|
-max:255',
-'body' => 'required',
-]);
-
-Marca::create($validated());
-return response()->json(['success' => true]);
-
-}
- */
 }

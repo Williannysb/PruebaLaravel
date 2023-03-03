@@ -2,8 +2,9 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
 use App\Models\Propietario;
+use Illuminate\Database\Seeder;
+
 class PropietarioSeeder extends Seeder
 {
     /**
@@ -18,7 +19,7 @@ class PropietarioSeeder extends Seeder
             'cedula' => '22198717',
             'nombre' => 'Jose',
             'apellido' => 'Rodriguez',
-            'fecha_nac' => '1993-03-05'
+            'fecha_nac' => '1993-03-05',
 
         ]);
         Propietario::create([
@@ -26,7 +27,7 @@ class PropietarioSeeder extends Seeder
             'cedula' => '22458963',
             'nombre' => 'Marta',
             'apellido' => 'Perez',
-            'fecha_nac' => '1994-02-02'
+            'fecha_nac' => '1994-02-02',
 
         ]);
     }

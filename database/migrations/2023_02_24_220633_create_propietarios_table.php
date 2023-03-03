@@ -13,11 +13,11 @@ class CreatePropietariosTable extends Migration
      */
     public function up()
     {
-        Schema::create('propietarios', function (Blueprint $table){
+        Schema::create('propietarios', function (Blueprint $table) {
             $table->increments('id')->unsigned();
-            $table->string('cedula',20)->unique();
-            $table->string('nombre',20);
-            $table->string('apellido',20);
+            $table->string('cedula', 20)->unique();
+            $table->string('nombre', 20);
+            $table->string('apellido', 20);
             $table->date('fecha_nac');
             $table->boolean('status')->default(1);
             $table->timestamps();

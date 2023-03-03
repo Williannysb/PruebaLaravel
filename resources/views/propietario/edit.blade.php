@@ -1,17 +1,17 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-               <br><br>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <br><br>
 
                 <div class="card">
 
                     <h5 class="card-header">PROPIETARIO</h5>
                     <div class="card-body">
 
-                      <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <ul class="nav nav-tabs" id="myTab" role="tablist">
 
 
                         </ul>
@@ -20,100 +20,89 @@
                             @csrf
                             <div class="form-group">
                                 Cedula: <br>
-                               <input type="text" class="form-control" id="txtcedula" name="txtcedula" placeholder="Ingrese Cedula" aria-describedby="helpId" value="{{ $propietario->cedula }}" required>
-                               </div>
-                           <div class="form-group">
-                            Nombre: <br>
-                           <input type="text" class="form-control" id="txtnombre" name="txtnombre" placeholder="Ingrese Nombre" aria-describedby="helpId" value="{{ $propietario->nombre }}" required>
-                           </div>
-                          <div class="form-group">
-                            Apellido:
+                                <input type="text" class="form-control" id="txtcedula" name="txtcedula"
+                                    placeholder="Ingrese Cedula" aria-describedby="helpId"
+                                    value="{{ $propietario->cedula }}" required>
+                            </div>
+                            <div class="form-group">
+                                Nombre: <br>
+                                <input type="text" class="form-control" id="txtnombre" name="txtnombre"
+                                    placeholder="Ingrese Nombre" aria-describedby="helpId"
+                                    value="{{ $propietario->nombre }}" required>
+                            </div>
+                            <div class="form-group">
+                                Apellido:
+                                <br>
+                                <input type="text" class="form-control" id="txtapellido" name="txtapellido"
+                                    placeholder="Ingrese Apellido" aria-describedby="helpId"
+                                    value="{{ $propietario->apellido }}" required>
+                            </div>
+                            <div class="form-group">
+                                Fecha de Nacimiento:
+                                <br>
+                                <input type="date" class="form-control datepicker" id="txtfecha" name="txtfecha"
+                                    placeholder="Ingrese Fecha de nacimiento" aria-describedby="helpId"
+                                    value="{{ $propietario->fecha_nac }}" required>
+                            </div>
                             <br>
-                           <input type="text" class="form-control" id="txtapellido" name="txtapellido" placeholder="Ingrese Apellido" aria-describedby="helpId" value="{{ $propietario->apellido }}" required>
-                           </div>
-                           <div class="form-group">
-                            Fecha de Nacimiento:
+                            <button class="btn btn-primary" id="modificarPropietario" value="Update">Modificar</button>
+                            <a href="{{ route('propietario.propietario') }}" class="btn btn-danger">Regresar</a>
+
                             <br>
-                           <input type="date" class="form-control datepicker" id="date" name="date" placeholder="Ingrese Fecha de nacimiento" aria-describedby="helpId" value="{{ $propietario->fecha_nac }}" required>
-                           </div>
-                           <br>
-                           <button class="btn btn-primary" id="modificarPropietario" value="Update">Modificar</button>
-                           <br>
-
-
-                         </form>
-
-                       </div>
-                            <hr>
-
-                   </div>
-
+                        </form>
+                    </div>
+                    <hr>
                 </div>
-
-
-
-
-
             </div>
-
+        </div>
     </div>
-</div>
-</div>
-
+    </div>
+    </div>
 @endsection
 @push('javascript')
+    <script>
+        $('#modificarPropietario').on('click', function(e) {
 
-<script>
+            e.preventDefault();
 
-$('#modificarPropietario').on('click', function(e){
+            let txtcedula = $('#txtcedula').val();
+            let txtnombre = $('#txtnombre').val();
+            let txtapellido = $('#txtapellido').val();
+            let txtfecha = $('#txtfecha').val();
+            let _token = $('input[name=_token]').val();
+            let fecha2 = new Date(txtfecha);
+            let date = new Date();
+            let anno = Math.floor((date - fecha2) / (365.25 * 24 * 60 * 60 * 1000));
 
-e.preventDefault();
+            if (anno >= 18) {
+                $.ajax({
 
-let txtcedula =$('#txtcedula').val();
-let txtnombre =$('#txtnombre').val();
-let txtapellido=$('#txtapellido').val();
-let date=$('#date').val();
-let _token = $('input[name=_token]').val();
+                    type: "PUT",
+                    url: "{{ route('propietario.update', $propietario->id) }}",
+                    data: {
 
-$.ajax({
+                        cedula: txtcedula,
+                        nombre: txtnombre,
+                        apellido: txtapellido,
+                        fecha_nac: txtfecha,
+                        _token: _token
+                    },
 
-type:"PUT",
-url:"{{route('propietario.update', $propietario->id)}}",
-data:{
+                    dataType: 'json',
+                    success: function(response) {
 
-    cedula : txtcedula,
-    nombre : txtnombre,
-    apellido : txtapellido,
-    fecha_nac : date,
-    _token : _token
-},
+                        toastr.success('Modificacion Exitosa');
+                        setTimeout(() => {
 
-dataType:'json',
-    success:function(response){
+                            window.location.replace('{{ route('propietario.propietario') }}')
+                        }, 3000);
+                    }
+                });
+            } else {
 
+                toastr.warning("Debe ser mayor de Edad");
 
-    setTimeout(() => {
-        toastr.success('Modificacion Exitosa');
-        window.location.replace('{{route("propietario.propietario")}}')
-    }, 3000);
-}
-
-
-})
-
-
-
-
-
-})
-
-
-
-
-
-
-
-
-</script>
-
+            }
+        });
+    </script>
 @endpush

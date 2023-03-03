@@ -2,10 +2,8 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
 use App\Models\Marca;
-use Illuminate\Support\Facades\Hash;
-
+use Illuminate\Database\Seeder;
 
 class MarcaSeeder extends Seeder
 {
@@ -20,7 +18,6 @@ class MarcaSeeder extends Seeder
             'id' => '1',
             'nombre' => 'Toyota',
             'descripcion' => 'Nuevo',
-
 
         ]);
         Marca::create([

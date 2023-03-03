@@ -15,8 +15,8 @@ class CreateModelosTable extends Migration
     {
         Schema::create('modelos', function (Blueprint $table) {
             $table->increments('id')->unsigned();
-            $table->string('nombre',20);
-            $table->string('descripcion',30)->nullable();
+            $table->string('nombre', 20);
+            $table->string('descripcion', 30)->nullable();
             $table->unsignedInteger('id_marca');
             $table->foreign('id_marca')->references('id')->on('marcas');
             $table->boolean('status')->default(1);

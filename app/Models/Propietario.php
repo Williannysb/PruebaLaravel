@@ -9,17 +9,18 @@ class Propietario extends Model
 {
     use HasFactory;
 
-protected $fillable = [
-  'id',
-  'cedula',
-  'nombre',
-  'apellido',
-  'fecha_nac',
-  'status'
+    protected $fillable = [
+        'id',
+        'cedula',
+        'nombre',
+        'apellido',
+        'fecha_nac',
+        'status',
 
-];
-public function vehiculo(){
-    return $this->belongsToMany(Vehiculo::class);
-}
+    ];
+    public function vehiculo()
+    {
+        return $this->belongsToMany(Vehiculo::class);
+    }
 
 }

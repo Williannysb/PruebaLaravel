@@ -1,16 +1,14 @@
 <?php
 namespace App\Http\Controllers;
-use App\Models\Vehiculo;
+
+use App\Http\Requests\ModeloStoreRequest;
+use App\Http\Requests\ModeloUpdateRequest;
 use App\Models\Marca;
 use App\Models\Modelo;
-use Illuminate\Auth\Events\Validated;
-use Illuminate\Http\Request; // Recuperar datos de la vista
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Illuminate\Foundation\Bus\DispatchesJobs;
-use Illuminate\Foundation\Validation\ValidatesRequests;
-use Illuminate\Routing\Controller as BaseController;
-// permite trabajar con la  base de datos
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests; // Recuperar datos de la vista
+use Illuminate\Http\Request;
 
+// permite trabajar con la  base de datos
 
 class ModeloController extends Controller
 {
@@ -28,16 +26,10 @@ class ModeloController extends Controller
 
     }
 
-    public function store(Request $request)
+    public function store(ModeloStoreRequest $request)
     {
-        $validated = $request->validate([
-            'nombre' => 'required',
-            'descripcion' => 'required',
-            'id_marca' => 'required',
 
-        ]);
-
-        Modelo::create($validated);
+        Modelo::create($request->all());
         return response()->json(['success' => true]);
 
     }
@@ -51,16 +43,11 @@ class ModeloController extends Controller
 
     }
 
-    public function update(Request $request, $id)
+    public function update(ModeloUpdateRequest $request, $id)
     {
-        $validated = $request->validate([
-            'nombre' => 'required',
-            'descripcion' => 'required',
-            'id_marca' => 'required',
 
-        ]);
         $modelo = Modelo::find($id);
-        $modelo->update($validated);
+        $modelo->update($request->all());
         return response()->json(['success' => true]);
 
     }
